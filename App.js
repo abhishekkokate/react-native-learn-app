@@ -1,19 +1,42 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import styled from "styled-components";
 import myLogo from "./assets/icon.png";
 import Card from "./components/Card";
 
 export default function App() {
+  const [randomProfile, setRandomProfile] = useState();
+  useEffect(() => {
+    getProfile();
+  }, []);
+  async function getProfile() {
+    try {
+      console.log("getting Profile");
+      fetch("https://randomuser.me/api/")
+        .then((response) => response.json())
+        .then((json) => {
+          setRandomProfile(json);
+          console.log(randomProfile?.results[0].name.first);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // console.log(randomProfile);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <>
       <Container>
         <TitleBar>
-          <Avatar source={require("./assets/avatar.jpg")}></Avatar>
+          <Avatar
+            source={{ uri: randomProfile?.results[0].picture.medium }}
+          ></Avatar>
           <TitleContaier>
             <Title>Welcome to React Native!</Title>
-            <Name>Abhishek</Name>
+            <Name>{randomProfile?.results[0].name.first}</Name>
           </TitleContaier>
         </TitleBar>
         <Subtitle>Continue Learining</Subtitle>
