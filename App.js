@@ -1,6 +1,14 @@
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 import styled from "styled-components";
 import myLogo from "./assets/icon.png";
 import Card from "./components/Card";
@@ -27,6 +35,7 @@ export default function App() {
       console.log(err);
     }
   }
+
   return (
     <>
       <Container>
@@ -38,6 +47,31 @@ export default function App() {
             <Title>Welcome to React Native!</Title>
             <Name>{randomProfile?.results[0].name.first}</Name>
           </TitleContaier>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#2196f3",
+              justifyContent: "center",
+              alignItems: "center",
+              width: 50,
+              height: 50,
+              borderRadius: 50,
+              elevation: 4,
+              marginLeft: "auto",
+            }}
+            onPress={() => {
+              getProfile();
+            }}
+          >
+            <ReloadIconContainer>
+              <FontAwesomeIcon
+                icon={faRotateRight}
+                style={{
+                  color: "white",
+                }}
+                size={20}
+              />
+            </ReloadIconContainer>
+          </TouchableOpacity>
         </TitleBar>
         <Subtitle>Continue Learining</Subtitle>
         <Card />
@@ -46,6 +80,11 @@ export default function App() {
     </>
   );
 }
+
+const ReloadIconContainer = styled.View`
+  transition: all 0.3s ease-out;
+  transform: rotate(0deg);
+`;
 
 const Subtitle = styled.Text`
   color: #b8bece;
@@ -70,6 +109,7 @@ const TitleBar = styled.View`
   margin: 10px;
   margin-top: 40px;
   flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
   /* background: #ff0; */
 `;
