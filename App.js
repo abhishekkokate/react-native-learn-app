@@ -8,6 +8,8 @@ import {
   View,
   TouchableOpacity,
   Animated,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 import styled from "styled-components";
 import myLogo from "./assets/icon.png";
@@ -39,42 +41,64 @@ export default function App() {
   return (
     <>
       <Container>
-        <TitleBar>
-          <Avatar
-            source={{ uri: randomProfile?.results[0].picture.medium }}
-          ></Avatar>
-          <TitleContaier>
-            <Title>Welcome to React Native!</Title>
-            <Name>{randomProfile?.results[0].name.first}</Name>
-          </TitleContaier>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#2196f3",
-              justifyContent: "center",
-              alignItems: "center",
-              width: 50,
-              height: 50,
-              borderRadius: 50,
-              elevation: 4,
-              marginLeft: "auto",
-            }}
-            onPress={() => {
-              getProfile();
-            }}
-          >
-            <ReloadIconContainer>
-              <FontAwesomeIcon
-                icon={faRotateRight}
+        <SafeAreaView>
+          <ScrollView>
+            <TitleBar>
+              <Avatar
+                source={{ uri: randomProfile?.results[0].picture.medium }}
+              ></Avatar>
+              <TitleContaier>
+                <Title>Welcome to React Native!</Title>
+                <Name>{randomProfile?.results[0].name.first}</Name>
+              </TitleContaier>
+              <TouchableOpacity
                 style={{
-                  color: "white",
+                  backgroundColor: "#2196f3",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: 50,
+                  height: 50,
+                  borderRadius: 50,
+                  elevation: 4,
+                  marginLeft: "auto",
                 }}
-                size={20}
+                onPress={() => {
+                  getProfile();
+                }}
+              >
+                <ReloadIconContainer>
+                  <FontAwesomeIcon
+                    icon={faRotateRight}
+                    style={{
+                      color: "white",
+                    }}
+                    size={20}
+                  />
+                </ReloadIconContainer>
+              </TouchableOpacity>
+            </TitleBar>
+            <Subtitle>Continue Learining</Subtitle>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <Card
+                title={"Styled Components"}
+                image={require("./assets/background2.jpg")}
+                caption={"React Native"}
+                logo={require("./assets/logo-react.png")}
+                subtitle={"5 of 12 Sessions"}
               />
-            </ReloadIconContainer>
-          </TouchableOpacity>
-        </TitleBar>
-        <Subtitle>Continue Learining</Subtitle>
-        <Card />
+              <Card
+                title={"Styled Components"}
+                image={require("./assets/background1.jpg")}
+                caption={"React Native"}
+                logo={require("./assets/logo-react.png")}
+                subtitle={"5 of 12 Sessions"}
+              />
+            </ScrollView>
+          </ScrollView>
+        </SafeAreaView>
         <StatusBar style="auto" />
       </Container>
     </>
@@ -126,4 +150,6 @@ const Title = styled.Text`
 const Container = styled.View`
   flex: 1;
   background-color: #f0f3f5;
+  width: 100%;
+  height: 100%;
 `;
